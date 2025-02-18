@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import ProjectEditor from './editor';
 import Projects from './projects';
 import SignIn from './signin';
+import { useEffect } from 'react';
 
 const Routes = observer(() => {
     const routeManager = useRouteManager();
@@ -17,6 +18,23 @@ const Routes = observer(() => {
     } else {
         routeManager.route = Route.PROJECTS;
     }
+
+    useEffect(() => {
+        // lynette hemingway edit
+        switch (routeManager.route) {
+            case Route.EDITOR:
+                document.title = 'Onlook - Project Editor';
+                break;
+            case Route.SIGN_IN:
+                document.title = 'Onlook - Sign In';
+                break;
+            case Route.PROJECTS:
+                document.title = 'Onlook - Projects';
+                break;
+            default:
+                document.title = 'Onlook - Unknown Route';
+        }
+    }, [routeManager.route]);
 
     switch (routeManager.route) {
         case Route.EDITOR:
